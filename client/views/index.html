@@ -1,0 +1,60 @@
+<head>
+  <title>Poll</title>
+</head>
+
+<template name="index">
+  {{>createPoll}}
+  {{>listPolls}}
+</template>
+
+<template name="createPoll">
+  <input type="text" id="input-title" placeholder="Title" />
+  <input type="text" class="input-option" placeholder="An option" />
+  <button id="btn-create">Create poll</button>
+</template>
+
+<template name="listPolls">
+  <ul>
+    {{#each polls}}
+      <li>
+        <a href="{{pathFor 'pollShow' _id=_id}}">
+          {{title}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="pollShow">
+  <h1>{{title}}</h1>
+  <ul>
+    {{#each options}}
+      {{>optionShow}} 
+    {{else}}
+      <p>no options for this poll.</p>
+    {{/each}}
+  </ul>
+  {{#if hasVotedInPoll}}
+    <button id="btn-remove-vote">Remove vote</button>
+  {{/if}}
+  {{#if admin}}
+    <button id="btn-add-option">Add option</button>
+  {{/if}}
+</template>
+
+<template name="optionShow">
+  <div>
+    {{#if hasVotedForOption}}
+      <button class="btn-option-checked">&#10004;</button>
+    {{else}}
+      {{#if hasVotedInPoll}}
+          <button class="btn-option" disabled="disabled">&nbsp;</button>
+        {{else}}
+          <button class="btn-option">&nbsp;</button>
+      {{/if}}
+    {{/if}}
+    <span class="option" data-has-voted="{{hasVotedForOption}}" data-has-voted-in-poll="{{hasVotedInPoll}}">
+      {{votes}} - {{text}}
+    </span>
+  </div>
+</template>
