@@ -40,6 +40,13 @@
   {{#if admin}}
     <button id="btn-add-option">Add option</button>
   {{/if}}
+  {{#if dataReady}}
+    {{> chart}}
+  {{/if}}
+</template>
+
+<template name="chart">
+  <canvas id="chart" width="400" height="400"></canvas> 
 </template>
 
 <template name="optionShow">
@@ -58,3 +65,5 @@
     </span>
   </div>
 </template>
+
+

@@ -4,8 +4,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 coffeescript
 iron:router
 less
 gadicohen:headers
+alamont:chartjs

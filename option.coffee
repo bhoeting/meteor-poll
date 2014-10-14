@@ -22,13 +22,13 @@ Meteor.methods
     Meteor.call 'removeAllVotesFromOption', optionId
     Options.remove optionId
 
-  'voteForOption': (optionId, pollId) ->
+  'voteForOption': (optionId, pollId, ip) ->
     if pollId is undefined
       pollId = Options.findOne(optionId, fields: pollId: 1).pollId
     Options.update optionId, $inc: 'votes': 1
     Votes.insert
-      'ip': @connection.clientAddress
-      'optionId': optionId,
+      'ip': ip
+      'optionId': optionId
       'pollId': pollId
 
   'removeVoteFromOption': (optionId) ->
