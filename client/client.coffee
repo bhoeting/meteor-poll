@@ -1,6 +1,6 @@
 # Subscriptions
-pollSubHanlder = Meteor.subscribe 'Poll'
-optionSubHandler = Meteor.subscribe 'Options'
+Meteor.subscribe 'Poll'
+Meteor.subscribe 'Options'
 
 # Create poll
 Template.createPoll.events =
@@ -12,7 +12,7 @@ Template.createPoll.events =
 
     $('.input-option').each (index) ->
       if @value
-        createOption 'text': @value, 'votes': 10, 'pollId': pollId
+        createOption 'text': @value, 'votes': 0, 'pollId': pollId, ips: []
       if index != 0 then $(@).remove() else @value = ''
 
     Router.go 'pollShow', '_id': pollId
@@ -31,7 +31,7 @@ Template.listPolls.polls = ->
 # Poll show
 Template.pollShow.events =
   'click #btn-remove-vote': (e, t) ->
-    Meteor.call 'removeVoteFromPoll', @_id
+    Meteor.call 'removeVoteFromPoll', @_id, headers.getClientIP()
     $('.btn-option').removeAttr 'disabled'
 
   'click #btn-add-option': (e, t) ->
@@ -46,16 +46,12 @@ Template.pollShow.options = ->
 Template.pollShow.admin = ->
   @ip is headers.getClientIP()
 
+Template.pollShow.rendered = ->
+  Tracker.autorun ->
+    drawChart()
+
 Template.pollShow.hasVotedInPoll = ->
-  hasVotedInPoll @_id
-
-# Template.pollShow.dataReady = ->
-#   if optionSubHandler.ready() and pollSubHanlder.ready()
-#     Session.set 'pollId', @_id
-#     console.log 'ready'
-
-# Template.chart.rendered = ->
-#   @drawChart Session.get 'pollId'
+  hasVotedInPoll @_id, headers.getClientIP()
 
 # Option show
 Template.optionShow.events =
@@ -75,7 +71,7 @@ Template.optionShow.events =
       Meteor.call 'updateOptionText', @_id, headers.getClientIP(), option
 
 Template.optionShow.hasVotedForOption = ->
-  if hasVotedForOption @_id then 'true' else null
+  if hasVotedForOption @_id, headers.getClientIP() then 'true' else null
 
 Template.optionShow.hasVotedInPoll = ->
-  if hasVotedInPoll @pollId then 'true' else null
+  if hasVotedInPoll @pollId, headers.getClientIP() then 'true' else null
