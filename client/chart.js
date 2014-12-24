@@ -13,6 +13,8 @@ this.drawChart = function() {
         label: element.text,
         color: '#' + colors[index]
       });
+
+      $('.option[data-id=' + element._id + ']').css('color', '#' + colors[index]);
     });
 
     var ctx = chart.getContext('2d');
@@ -29,4 +31,6 @@ var chartOptions = {
   animationEasing: 'easeOutQuart',
 };
 
+
 var colors = ['F7464A', '46BFBD', 'FDB45C', '9B72BF', '72BF9E', 'BF72A4'];
+

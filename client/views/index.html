@@ -4,7 +4,6 @@
 
 <template name="index">
   {{>createPoll}}
-  {{>listPolls}}
 </template>
 
 <template name="createPoll">
@@ -26,34 +25,40 @@
 </template>
 
 <template name="pollShow">
-  <h1>{{title}}</h1>
-  <ul>
-    {{#each options}}
-      {{>optionShow}} 
-    {{else}}
-      <p>no options for this poll.</p>
-    {{/each}}
-  </ul>
-  {{#if hasVotedInPoll}}
-    <button id="btn-remove-vote">Remove vote</button>
-  {{/if}}
-  {{#if admin}}
-    <button id="btn-add-option">Add option</button>
-  {{/if}}
-  <canvas id="chart" width="400" height="400"></canvas> 
+  <div class="poll-show">
+    <h1>{{title}}</h1>
+    <ul>
+      {{#each options}}
+        {{>optionShow}} 
+      {{else}}
+        <p>no options for this poll.</p>
+      {{/each}}
+    </ul>
+    {{#if hasVotedInPoll}}
+      <button id="btn-remove-vote">Remove vote</button>
+    {{/if}}
+    {{#if admin}}
+      <button id="btn-add-option">Add option</button>
+    {{/if}}
+  </div>
+  <div class="poll-chart">
+    <canvas id="chart" width="400" height="400"></canvas> 
+  </div>
 </template>
 
 <template name="optionShow">
   <div>
-    {{#if hasVotedForOption}}
-      <button class="btn-option-checked">&#10004;</button>
-    {{else}}
-      {{#if hasVotedInPoll}}
-          <button class="btn-option" disabled="disabled">&nbsp;</button>
-        {{else}}
-          <button class="btn-option">&nbsp;</button>
+    <span class="button-wrapper" data-id="{{_id}}">
+      {{#if hasVotedForOption}}
+        <button class="btn-option-checked" data-id="{{_id}}">&#10004;</button>
+      {{else}}
+        {{#if hasVotedInPoll}}
+            <button class="btn-option" disabled="disabled">&nbsp;</button>
+          {{else}}
+            <button class="btn-option">&nbsp;</button>
+        {{/if}}
       {{/if}}
-    {{/if}}
+    </span>
     <span class="option" data-has-voted="{{hasVotedForOption}}" data-has-voted-in-poll="{{hasVotedInPoll}}">
       {{votes}} - {{text}}
     </span>

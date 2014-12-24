@@ -16,7 +16,7 @@ Meteor.methods
       'ips': options.ips
       'text': options.text
       'votes': options.votes
-      'pollId': options.pollId
+      'pollId': options.pollId,
 
   'updateOptionText': (optionId, ip, text) ->
     pollId = Options.findOne(optionId, fields: 'pollId': 1).pollId

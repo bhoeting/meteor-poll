@@ -12,7 +12,7 @@ Template.createPoll.events =
 
     $('.input-option').each (index) ->
       if @value
-        createOption 'text': @value, 'votes': 0, 'pollId': pollId, ips: []
+        createOption 'text': @value, 'votes': _.random(4, 17), 'pollId': pollId, ips: []
       if index != 0 then $(@).remove() else @value = ''
 
     Router.go 'pollShow', '_id': pollId
