@@ -1,35 +1,47 @@
 <head>
-  <title>Poll</title>
+  <title>College is too expensive</title>
 </head>
 
 <template name="index">
-  {{>createPoll}}
+  <div class="container">
+    <section class="problem">
+      <h2>
+        <i class="fa fa-arrow-up green"></i> Price of college
+      </h2>
+      <h2>
+        Value of education <i class="fa fa-arrow-down red"></i>
+      </h2>
+    </section>
+
+    {{> listPolls}}
+  </div>
 </template>
 
 <template name="createPoll">
-  <input type="text" id="input-title" placeholder="Title" />
-  <input type="text" class="input-option" placeholder="An option" />
-  <button id="btn-create">Create poll</button>
+  <div class="container">
+    <input type="text" id="input-title" placeholder="Title" />
+    <textarea id="input-text" class="" placeholder="Text"></textarea>
+    <input type="text" class="input-option" placeholder="An option" />
+    <button id="btn-create">Create poll</button>
+  </div>
 </template>
 
 <template name="listPolls">
-  <ul>
-    {{#each polls}}
-      <li>
-        <a href="{{pathFor 'pollShow' _id=_id}}">
-          {{title}}
-        </a>
-      </li>
-    {{/each}}
-  </ul>
+  {{#each polls}}
+    {{> pollShow}}
+  {{/each}}
 </template>
 
 <template name="pollShow">
   <div class="poll-show">
+    <blockquote>
+      {{text}}
+    </blockquote>
+
     <h1>{{title}}</h1>
     <ul>
       {{#each options}}
-        {{>optionShow}} 
+        {{>optionShow}}
       {{else}}
         <p>no options for this poll.</p>
       {{/each}}
@@ -37,12 +49,6 @@
     {{#if hasVotedInPoll}}
       <button id="btn-remove-vote">Remove vote</button>
     {{/if}}
-    {{#if admin}}
-      <button id="btn-add-option">Add option</button>
-    {{/if}}
-  </div>
-  <div class="poll-chart">
-    <canvas id="chart" width="400" height="400"></canvas> 
   </div>
 </template>
 
@@ -53,9 +59,9 @@
         <button class="btn-option-checked" data-id="{{_id}}">&#10004;</button>
       {{else}}
         {{#if hasVotedInPoll}}
-            <button class="btn-option" disabled="disabled">&nbsp;</button>
-          {{else}}
-            <button class="btn-option">&nbsp;</button>
+          <button class="btn-option" data-id="{{_id}}" disabled>&nbsp;</button>
+        {{else}}
+          <button class="btn-option" data-id="{{_id}}">&nbsp;</button>
         {{/if}}
       {{/if}}
     </span>
@@ -64,5 +70,3 @@
     </span>
   </div>
 </template>
-
-

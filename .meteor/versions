@@ -16,6 +16,7 @@ deps@1.0.4
 ejson@1.0.3
 fastclick@1.0.0
 follower-livedata@1.0.1
+fortawesome:fontawesome@4.4.0
 gadicohen:headers@0.0.25
 geojson-utils@1.0.0
 html-tools@1.0.1
@@ -51,6 +52,7 @@ spacebars-compiler@1.0.2
 spacebars@1.0.2
 templating@1.0.7
 tracker@1.0.2
+twbs:bootstrap@3.3.2
 ui@1.0.3
 underscore@1.0.0
 url@1.0.0

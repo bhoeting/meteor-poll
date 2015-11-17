@@ -3,6 +3,10 @@ Router.map ->
     path: '/'
     template: 'index'
 
+  @route 'createPoll',
+    path: 'create-poll'
+    template: 'createPoll'
+
   @route 'pollShow',
     path: '/:_id',
     data: ->
@@ -10,4 +14,3 @@ Router.map ->
     onRun: ->
       Session.set 'pollId', @params._id
     template: 'pollShow'
-

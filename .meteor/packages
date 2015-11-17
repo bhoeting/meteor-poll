@@ -9,3 +9,6 @@ iron:router
 less
 gadicohen:headers
 alamont:chartjs
+twbs:bootstrap
+fortawesome:fontawesome
+
