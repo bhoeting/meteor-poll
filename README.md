@@ -8,5 +8,5 @@ A poll app in Meteor with a cool graph.
   meteor
   
 # screenshots
-!(https://i.imgur.com/iH8X59a.png)
-!(https://i.imgur.com/8CFMRMF.png)
+![Screenshot](https://i.imgur.com/iH8X59a.png)
+![Screenshot](https://i.imgur.com/8CFMRMF.png)
